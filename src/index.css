@@ -102,33 +102,43 @@ body {
     margin: 10mm;
   }
 }
-/* --- AJUSTES DE IMPRESSÃO (BOLT) --- */
+/* --- IMPRESSÃO PERFEITA NO BOLT --- */
 @media print {
-  /* 1. Força o navegador a imprimir as cores de fundo e efeitos neon */
-  * {
+  /* 1. Oculta tudo na página por padrão */
+  body * {
+    visibility: hidden;
+  }
+
+  /* 2. Mostra APENAS a ficha/card do personagem e tudo dentro dela */
+  #root, 
+  main,
+  [class*="CharacterCard"],
+  [class*="character-card"],
+  .animate-fade-in,
+  .animate-fade-in * {
+    visibility: visible !important;
+  }
+
+  /* 3. Ajusta o posicionamento da ficha no centro da folha */
+  body {
+    background-color: #0f172a !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    color-adjust: exact !important;
   }
 
-  /* 2. Define fundo escuro na página inteira de impressão */
-  html, body {
-    background-color: #0d1117 !important; /* Cor escura padrão */
-    color: #ffffff !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    height: 100% !important;
-    overflow: hidden !important;
+  /* 4. Garante que o container do card fique no topo e centralizado */
+  .animate-fade-in {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 100% !important;
+    max-width: 450px !important;
   }
 
-  /* 3. Remove margens da folha para não gerar páginas em branco extras */
+  /* Remove margens e cabeçalhos automáticos da folha */
   @page {
     margin: 0;
-    size: auto;
-  }
-
-  /* 4. Esconde o que for formulário ou menu se houver a classe print:hidden */
-  .print\:hidden {
-    display: none !important;
+    size: portrait;
   }
 }
