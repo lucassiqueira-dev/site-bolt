@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #070710;
+}
+
+/* Neon scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0d1a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00f0ff, #bf00ff);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00f0ff, #ff003c);
+}
+
+/* Cyber grid background */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Neon text glow utilities */
+.text-glow-cyan {
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
+}
+.text-glow-purple {
+  text-shadow: 0 0 8px rgba(191, 0, 255, 0.6), 0 0 20px rgba(191, 0, 255, 0.3);
+}
+.text-glow-green {
+  text-shadow: 0 0 8px rgba(57, 255, 20, 0.6), 0 0 20px rgba(57, 255, 20, 0.3);
+}
+.text-glow-pink {
+  text-shadow: 0 0 8px rgba(255, 0, 60, 0.6), 0 0 20px rgba(255, 0, 60, 0.3);
+}
+
+/* Clip-path corner cut for cyber panels */
+.clip-corner {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+.clip-corner-sm {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+/* Flip card */
+.flip-card {
+  perspective: 1600px;
+}
+.flip-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.flip-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+/* Print: hide everything except the card */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #card-export,
+  #card-export * {
+    visibility: visible !important;
+  }
+  #card-export {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  @page {
+    margin: 10mm;
+  }
+}
+/* --- AJUSTES DE IMPRESSÃO (BOLT) --- */
+@media print {
+  /* 1. Força o navegador a imprimir as cores de fundo e efeitos neon */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* 2. Define fundo escuro na página inteira de impressão */
+  html, body {
+    background-color: #0d1117 !important; /* Cor escura padrão */
+    color: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* 3. Remove margens da folha para não gerar páginas em branco extras */
+  @page {
+    margin: 0;
+    size: auto;
+  }
+
+  /* 4. Esconde o que for formulário ou menu se houver a classe print:hidden */
+  .print\:hidden {
+    display: none !important;
+  }
+}
